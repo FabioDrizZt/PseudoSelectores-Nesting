@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+* {
+  box-sizing: border-box;
+}
+:root {
+  --primary-color: #c70039;
+  --secondary-color: grey;
+}
+body {
+  background: #222;
+  font-family: 'Roboto';
+  color: #f2f2f2;
+  cursor: url('../img/cursor-arrow.png'), auto;
+}
+
+/** Agrego un elemento ★ al html según el estado del <li> **/
+/* ... a quien  | cuando          | donde             => que
+    selectores  | :pseudo-clases  | ::pseudo-elemento => {content:''} */
+nav ul {
+  list-style: none;
+  margin-left: 10px;
+  & li {
+    &::before {
+      content: '\02729';
+      font-size: 30px;
+      color: var(--primary-color);
+      padding-right: 10px;
+      visibility: hidden;
+    }
+    &:hover::before {
+      visibility: visible;
+    }
+  }
+}
+a {
+  cursor: url('../img/cursor-pointer.png'), pointer;
+  font-size: 30px;
+  &:link {
+    /*No visitado por el usuario y con href*/
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  &:visited {
+    /*Exclusivo para enlaces*/
+    color: var(--secondary-color);
+  }
+  *:hover {
+    /*Elemento apuntador pasa por encima*/
+    text-decoration: underline;
+    color: seagreen;
+  }
+  &:active {
+    /*Se activa cuando el usuario pulsa el elemento*/
+    color: yellow;
+  }
+}
+
+input {
+  margin: 0 15px 0 10px;
+  border: none;
+  color: #fff;
+  width: unset;
+
+  &:focus {
+    background-color: grey;
+    &::placeholder {
+      color: white;
+    }
+  }
+  &:disabled {
+    background-color: #222;
+    border: 1px solid var(--secondary-color);
+  }
+  &:invalid {
+    border: 2px solid var(--primary-color);
+  }
+  &:valid {
+    border: 2px solid green;
+  }
+}
+.required::before {
+  content: '*';
+  color: var(--primary-color);
+}
+/* .required::before{
+  content:"*";
+} */
+ul.lista {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  width: 80%;
+  & li {
+    margin: 0;
+    padding: 8px 10px;
+    color: #111;
+    &:nth-child(odd) {
+      /* filar impares */
+      background-color: #887e7e;
+    }
+    &:nth-child(even) {
+      /* filar pares */
+      background-color: #e5e5e5;
+    }
+  }
+}
+
+p {
+  &:nth-child(2n)::first-line {
+    font-weight: bold;
+    color: #e5e5e5;
+  }
+  &:nth-child(2n + 1) {
+    /*odd*/
+    font-size: 1.5em;
+    color: var(--primary-color);
+  }
+  &:nth-child(2n) {
+    /*even*/
+    color: var(--secondary-color);
+    &::after {
+      content: 'Continua...';
+      color: var(--primary-color);
+    }
+  }
+}
+h1 {
+  &::selection {
+    background: white;
+    color: #111;
+  }
+  &::first-letter {
+    color: var(--primary-color);
+  }
+}
+body {
+  counter-reset: cuenta-section;
+}
+section::before {
+  content: 'Seccion: ' counter(cuenta-section);
+  counter-increment: cuenta-section;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+/* Dialogo-perrito */
+/* --------------- */
+.dialogo {
+  background: var(--secondary-color);
+  padding: 10px;
+  color: #000;
+  margin: 30px auto;
+  border-radius: 15px;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: center;
+  width: 200px;
+  /*Agrego position relative porque voy a añadir el 
+    triangulito para la viñeta y el perrito con position absolute */
+  position: relative;
+}
+
+/** ... añadir el triagulito para formar la viñeta **/
+.dialogo::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -40px;
+  border-top: 20px solid var(--secondary-color);
+  border-right: 20px solid transparent;
+  border-left: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  right: calc(50% - 20px);
+}
+
+/** ... añadir el perrito **/
+.dialogo::after {
+  content: url("../img/perro.gif");
+  display: block;
+  position: absolute;
+  bottom: -150px;
+}
